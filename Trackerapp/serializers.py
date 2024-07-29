@@ -1,4 +1,4 @@
-from .models import Category, Income, Expense
+from .models import Category, Income, Expense, User
 from rest_framework import serializers
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -22,3 +22,8 @@ class ExpenseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Expense
         fields = ['id','date','price','category_name','description','income_source']
+
+class UserSerializers(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url','username', 'email']
