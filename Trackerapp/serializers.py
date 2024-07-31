@@ -16,14 +16,19 @@ class ExpenseSerializer(serializers.ModelSerializer):
     def get_category_name(self,obj):
         return obj.category.name
     
-    income_source = serializers.SerializerMethodField()
-    def get_income_source(self, obj):
+    source_income = serializers.SerializerMethodField()
+    def get_source_income(self, obj):
         return obj.income_source.source
     class Meta:
         model = Expense
-        fields = ['id','date','price','category_name','description','income_source']
+        fields = ['id','date','price','category','category_name','description','income_source','source_income']
 
 class UserSerializers(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url','username', 'email']
+        fields = ['url','username', 'email','password']
+        extra_kwargs = {'password':{'write_only':True}}
+
+        def create(self, validated_data):
+            user = User.objects.create_user(**validated_data)
+            return user
