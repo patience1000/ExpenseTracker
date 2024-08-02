@@ -3,6 +3,9 @@ from rest_framework import viewsets
 from Trackerapp.permissions import IsOwnerOrReadOnly
 from rest_framework.permissions import IsAuthenticated
 from .models import Category,Income,Expense,User
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 from .serializers import CategorySerializer, IncomeSerializer,ExpenseSerializer,UserSerializers
 # Create your views here.
 
@@ -30,4 +33,16 @@ class ExpenseViewSet(viewsets.ModelViewSet):
       
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
-    serializer_class = UserSerializers          
+    serializer_class = UserSerializers        
+
+class LoginViewSet(viewsets.ViewSet):
+    def create(self,request):
+        serializer = ObtainAuthToken.serializer_class(data=request.data, context={'request':request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'username': user.username,
+            'password': user.password
+        })
