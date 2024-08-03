@@ -40,9 +40,9 @@ class LoginViewSet(viewsets.ViewSet):
         serializer = ObtainAuthToken.serializer_class(data=request.data, context={'request':request})
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
-        token = Token.objects.get_or_create(user=user)
+        token  = Token.objects.get_or_create(user=user)
         return Response({
             'token': token.key,
-            'username': user.username,
-            'password': user.password
+            'username': user.username,      # No need to return username, but that's not a problem
+            # 'password': user.password     # Returning password (even hashed) is a security issue
         })
