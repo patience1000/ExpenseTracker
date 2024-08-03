@@ -43,6 +43,5 @@ class LoginViewSet(viewsets.ViewSet):
         token  = Token.objects.get_or_create(user=user)
         return Response({
             'token': token.key,
-            'username': user.username,      # No need to return username, but that's not a problem
-            # 'password': user.password     # Returning password (even hashed) is a security issue
+            'username': user.username
         })
