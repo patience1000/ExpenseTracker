@@ -45,3 +45,7 @@ class LoginViewSet(viewsets.ViewSet):
             'token': token.key,
             'username': user.username
         })
+
+#added this block for template login      
+def Login1(request):
+    return render(request, 'Trackerapp/login.html')
