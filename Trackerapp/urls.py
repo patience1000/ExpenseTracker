@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import CategoryViewSet,IncomeViewSet, ExpenseViewSet, UserViewSet, LoginViewSet
+from .views import CategoryViewSet,IncomeViewSet, ExpenseViewSet, UserViewSet, LoginViewSet, Login1 #added login view
 
 router = DefaultRouter()
 router.register(r'categories', CategoryViewSet, basename='category')
@@ -10,5 +10,6 @@ router.register(r'users', UserViewSet)
 router.register(r'login',LoginViewSet, basename='login')
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)), #added comma
+    path('login1', Login1), #added login route
 ]

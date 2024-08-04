@@ -5,8 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="C:\Users\PMISHEKWO PATIENCE P\Desktop\Django Project\ExpenseTracker\Trackerapp\static\CSS\style.css">
+    
+    <!-- Hi Pat I had to remove the line below because it references your local directory not a project directory -->
+    <!-- <link rel="stylesheet" href="C:\Users\PMISHEKWO PATIENCE P\Desktop\Django Project\ExpenseTracker\Trackerapp\static\CSS\style.css"> -->
+    
+    <!-- I believe this is for the icons on the username and password fields. Love the creativity -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Here is a proper reference to your CSS that will be recognized by server, in place of the one I commented out previously -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
 </head>
 <body>
         <form action="">
@@ -24,5 +33,13 @@
                 <button class="login-btn" type="submit">Log in</button>
             
     </div>
+
+
+    <!-- OYA REMAIN JAVASCRIPT 😎 -->
+    <script>
+        // implement the login here. Don't forget to add event listener on the submit button.
+        // GOOD LUCK 👍
+    </script>
+
 </body>
 </html>
