@@ -53,3 +53,26 @@ h1 {
 .login-btn:hover {
     opacity: 0.8;
 }
+.sidebar {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color:rgb(76, 117, 76);
+    overflow-x: hidden;
+    padding-top: 16px;
+}
+
+.sidebar a, h2 {
+    padding: 6px 8px 50px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+    display: block;
+}
+  
+.sidebar a:hover {
+    opacity: 0.8 ;
+}  

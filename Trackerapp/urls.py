@@ -10,6 +10,6 @@ router.register(r'users', UserViewSet)
 router.register(r'login',LoginViewSet, basename='login')
 
 urlpatterns = [
-    path('', include(router.urls)), #added comma
-    path('login1', Login1), #added login route
+    path('', include(router.urls)),
+    path('login1', Login1),
 ]
