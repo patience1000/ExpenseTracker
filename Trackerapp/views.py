@@ -6,9 +6,9 @@ from .models import Category,Income,Expense,User
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
 from .serializers import CategorySerializer, IncomeSerializer,ExpenseSerializer,UserSerializers
 # Create your views here.
-
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -46,6 +46,9 @@ class LoginViewSet(viewsets.ViewSet):
             'username': user.username
         })
 
-#added this block for template login      
+#added this block for template login    
+@csrf_exempt  
 def Login1(request):
     return render(request, 'Trackerapp/login.html')
+def Dashboard(request):
+    return render(request, 'Trackerapp/index.html')

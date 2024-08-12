@@ -1,35 +1,53 @@
+{% load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chart.js Example</title>
+    <title>Trackerapp</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="C:\Users\PMISHEKWO PATIENCE P\Desktop\Django Project\ExpenseTracker\Trackerapp\static\CSS\style.css">
+
+    <link rel="stylesheet" href="{% static 'CSS/base.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <div class="sidebar">
-        <h2>ExTrack</h2>
+        <h2>ExTracker</h2>
         <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>   
-        <a href="#income"><i class="fa fa-fw fa-"></i>Income</a>
-        <a href="#report"><i class="fa fa-fw fa-"></i>Report</a>
-        <a href="#expenses"><i class="fa fa-fw fa-"></i>Expense</a>
-        <a href="#categories"><i class="fa fa-fw fa-"></i>Categories</a>
-        <a href="#login"><i class="fa fa-fw fa-"></i>Logout</a>
+        <a href="#income"><i class="fa fa-fw fa-hand-holding-usd"></i>Income</a>
+        <a href="#report"><i class="fa fa-fw fa-file-alt"></i>Report</a>
+        <a href="#expenses"><i class="fa fa-fw fa-cash-register"></i>Expense</a>
+        <a href="#categories"><i class="fa fa-fw fa-list-alt"></i>Categories</a>
+        <a href="#login.html"><i class="fa fa-fw fa-sign-out-alt"></i>Logout</a>
     </div>
-    <div class="update">
+    <div class="container">
+        <div class="box1">
+            <h3>$95,000</h3>
+            <p>Income</p>
+        </div>
         
+        <div class="box2">
+            <h3>$55,000</h3>
+            <p>Expenses</p>
+        </div>
+        <div class="box3">
+            <h3>$40,000</h3>
+            <p>Balance</p>
+        </div>  
+        <div class="box4">
+            <h3>122</h3>
+            <p>Transactions</p>
+        </div> 
     </div>
-    <canvas id="myChart"></canvas>
+     <canvas id="myChart"></canvas>
     <script>
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: ['Food', 'Transportation', 'Medecine', 'Personal-items', 'Electricity', 'Entertainment'],
                 datasets: [{
-                    label: '# of Votes',
+                    label: 'Monthly Report',
                     data: [12, 19, 3, 5, 2, 3],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -60,4 +78,4 @@
         });
     </script>
 </body>
-</html>
+</html> 

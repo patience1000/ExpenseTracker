@@ -1,0 +1,47 @@
+body{
+    background-image:linear-gradient(rgb(236, 243, 239),rgb(213, 252, 236));  
+    height: 100vh;
+}
+
+.sidebar {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color:#4c755c;
+    overflow-x: hidden;
+    padding-top: 16px;
+}
+
+.sidebar a, h2 {
+    padding: 6px 8px 50px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+    display: block;
+}
+  
+.sidebar a:hover {
+    opacity: 0.8 ;
+}  
+
+.container {
+    margin-left: 160px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.container .box1, .box2,.box3,.box4{
+    padding: 0px 40px;
+    background-color: #fff;
+    color: #4c755c;
+    border-radius: 5px;
+    font-size: 0.8em;
+    box-shadow: 2px 2px 4px 3px rgb(0,0,0,0.1);
+}
+#myChart {
+    margin-left: 160px;
+}
+

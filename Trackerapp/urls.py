@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import CategoryViewSet,IncomeViewSet, ExpenseViewSet, UserViewSet, LoginViewSet, Login1 #added login view
+from .views import CategoryViewSet,IncomeViewSet, ExpenseViewSet, UserViewSet, LoginViewSet, Login1,Dashboard
 
 router = DefaultRouter()
 router.register(r'categories', CategoryViewSet, basename='category')
@@ -11,5 +11,6 @@ router.register(r'login',LoginViewSet, basename='login')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('login1', Login1),
+    path('login1/', Login1),
+    path('dashboard/', Dashboard),
 ]

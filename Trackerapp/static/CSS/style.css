@@ -16,7 +16,7 @@ form{
 }
 h1 {
     margin: 46px 0;
-    color: rgb(76, 117, 76);
+    color: #4c755c;
     text-align: center;
 }
 .form-group{
@@ -38,7 +38,7 @@ h1 {
 }
 
 .login-btn{
-    background-color: rgb(76, 117, 76);
+    background-color: #4c755c;
     outline: none;
     border-radius: 5px;
     padding: 8px 40px;
@@ -53,26 +53,3 @@ h1 {
 .login-btn:hover {
     opacity: 0.8;
 }
-.sidebar {
-    height: 100%;
-    width: 160px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color:rgb(76, 117, 76);
-    overflow-x: hidden;
-    padding-top: 16px;
-}
-
-.sidebar a, h2 {
-    padding: 6px 8px 50px 16px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #fff;
-    display: block;
-}
-  
-.sidebar a:hover {
-    opacity: 0.8 ;
-}  

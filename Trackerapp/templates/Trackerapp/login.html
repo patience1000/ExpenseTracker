@@ -3,43 +3,80 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{% csrf_token %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    
-    <!-- Hi Pat I had to remove the line below because it references your local directory not a project directory -->
-    <!-- <link rel="stylesheet" href="C:\Users\PMISHEKWO PATIENCE P\Desktop\Django Project\ExpenseTracker\Trackerapp\static\CSS\style.css"> -->
-    
+   
     <!-- I believe this is for the icons on the username and password fields. Love the creativity -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
-    <!-- Here is a proper reference to your CSS that will be recognized by server, in place of the one I commented out previously -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
 <body>
-        <form action="">
+        <form id="login-form" method="post">
+            {% csrf_token %}
             <h1>Welcome Back</h1>
             <div class="form-group">
                 <i class="fas fa-user"></i>
-                <input class="form-control" id="Username" type="text" placeholder="Username" required="required" data-validation-required-message="Please enter your name.">      
+                <input id="username" class="form-control" id="Username" type="text" placeholder="Username" required="required" data-validation-required-message="Please enter your name.">      
             </div>
 
             <div class="form-group">
                 <i class="fas fa-ban"></i>
-                <input class="form-control" type="password" placeholder="Password" required="required"
+                <input id="password" class="form-control" type="password" placeholder="Password" required="required"
                 data-validation-required-message="Please enter valid password"> 
             </div>
-                <button class="login-btn" type="submit">Log in</button>
-            
-    </div>
-
-
+                <button id="login-btn" class="login-btn" type="submit">Log in</button>
+        </form>   
+    
     <!-- OYA REMAIN JAVASCRIPT 😎 -->
-    <script>
-        // implement the login here. Don't forget to add event listener on the submit button.
-        // GOOD LUCK 👍
-    </script>
+    <!-- // implement the login here. Don't forget to add event listener on the submit button.
+    // GOOD LUCK 👍 -->
+    <!-- I have implemented the login, I added the event listener -->
+     <!-- I encountered a Cross-Origin Resource sharing error,so I installed cors-headers to fix 
+      the issue(It's a django package),a security feature that prevents web pages from making requests to a different port  -->
+    <script>    
+        const form = document.getElementById('login-form');
+        const loginBtn = document.getElementById('login-btn')
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        let usernameValue;
+        let passwordValue;
 
+        loginBtn.addEventListener('click', (e) => { 
+            e.preventDefault();
+            usernameValue = usernameInput.value;
+            passwordValue = passwordInput.value;
+
+        fetch('http://localhost:8000/login1/', {  
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken, 
+            },
+            body: JSON.stringify({ username: usernameValue, password: passwordValue}),
+        })
+        .then(response => { 
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error(text);
+                });
+            }
+            return response.json();
+        })
+        .then((data) => {  
+            if (data.token) {
+                window.location.href = 'index.html';
+            } else {
+                alert('Invalid credentials');
+            }
+        })
+        .catch((error) => { 
+            console.log('An error occurred: ' + error.message);
+        });
+    });
+</script>
 </body>
 </html>

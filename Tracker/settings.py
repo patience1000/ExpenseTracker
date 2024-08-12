@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Trackerapp',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -134,3 +136,7 @@ REST_FRAMEWORK = {
     ]
 
 }
+# CORS_ALLOWED_ORIGINS = [
+#     'http://127.0.0.1:8000',  # Add your frontend's URL here
+# ]
+CORS_ALLOW_ALL_ORIGINS = True
