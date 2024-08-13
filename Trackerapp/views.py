@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from django.http import JsonResponse
 from Trackerapp.permissions import IsOwnerOrReadOnly
 from rest_framework.permissions import IsAuthenticated
 from .models import Category,Income,Expense,User
@@ -30,7 +31,18 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]  
     def get_queryset(self):
         return  self.queryset.filter(user=self.request.user)
-      
+    
+    # added this function so I can get each user and their expenses so that I can use it in the chart 
+    def get_user(request):
+        user_id = User
+        expenses = Expense.objects.filter(user_id=user_id)
+        data = []
+        for expense in expenses:
+            data.append({
+                'category': expense.category,
+                'price': expense.price
+            })
+        return JsonResponse(data, safe=False)
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializers        
