@@ -47,7 +47,7 @@
             const  sumData = {}
             data.array.forEach(expense =>{
                 if(!sumData[expense.category]){
-                    sumData[expense.category]= 0;
+                    sumData[expense.category]= 0; 
                 }
                 sumData[expense.category] += expense.price
             });   

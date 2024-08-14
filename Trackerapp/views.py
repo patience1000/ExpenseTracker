@@ -33,7 +33,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
         return  self.queryset.filter(user=self.request.user)
     
     # added this function so I can get each user and their expenses so that I can use it in the chart 
-    def get_user(request):
+    def get_user_expense(request):
         user_id = User
         expenses = Expense.objects.filter(user_id=user_id)
         data = []
