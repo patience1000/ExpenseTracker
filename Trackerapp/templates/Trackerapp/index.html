@@ -18,7 +18,7 @@
         <a href="#report"><i class="fa fa-fw fa-file-alt"></i>Report</a>
         <a href="#expenses"><i class="fa fa-fw fa-cash-register"></i>Expense</a>
         <a href="#categories"><i class="fa fa-fw fa-list-alt"></i>Categories</a>
-        <a href="#login.html"><i class="fa fa-fw fa-sign-out-alt"></i>Logout</a>
+        <a href="/login1"><i class="fa fa-fw fa-sign-out-alt"></i>Logout</a>
     </div>
     <div class="container">
         <div class="box1">
@@ -41,7 +41,15 @@
     </div>
      <canvas id="myChart"></canvas>
     <script>
-        fetch('http://localhost:8000/expenses?user_id=${user_id}')
+        const authtoken = localStorage.getItem('authToken');
+        const user_id = localStorage.getItem('userId'); // Assuming you store user ID in localStorage
+        
+        const headers = {
+        'Authorization': `Bearer ${authtoken}`,
+        'Content-Type': 'application/json'
+        };
+
+        fetch('http://localhost:8000/api/expenses?user_id=${user_id}', {headers: headers})
         .then(response => response.json())
         .then(data => {
             const  sumData = {}

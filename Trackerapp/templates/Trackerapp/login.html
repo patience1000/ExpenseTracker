@@ -42,14 +42,18 @@
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         let usernameValue;
         let passwordValue;
+<<<<<<< HEAD
         // const token =
+=======
+        
+>>>>>>> 065350fae0d1fdc76d9629b613a70d7140f1537f
 
         loginBtn.addEventListener('click', (e) => { 
             e.preventDefault();
             usernameValue = usernameInput.value;
             passwordValue = passwordInput.value;
 
-        fetch('http://localhost:8000/login1/', {  
+        fetch('http://localhost:8000/auth/token/login/', {  
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -62,18 +66,20 @@
                 return response.text().then(text => {
                     throw new Error(text);
                 });
+<<<<<<< HEAD
             }else{
                 
             }
+=======
+            } 
+>>>>>>> 065350fae0d1fdc76d9629b613a70d7140f1537f
             return response.json();
             
         })
-        .then((data) => {  
-            if (data.token) {
-                window.location.href = 'index.html';
-            } else {
-                alert('Invalid credentials');
-            }
+        .then(data => { 
+            const token = data.auth_token;
+            localStorage.setItem('authToken', token);
+            window.location.href = '/';
         })
         .catch((error) => { 
             console.log('An error occurred: ' + error.message);

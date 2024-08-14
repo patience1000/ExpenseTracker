@@ -43,20 +43,20 @@ class ExpenseViewSet(viewsets.ModelViewSet):
                 'price': expense.price
             })
         return JsonResponse(data, safe=False)
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializers        
+# class UserViewSet(viewsets.ModelViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializers        
 
-class LoginViewSet(viewsets.ViewSet):
-    def create(self,request):
-        serializer = ObtainAuthToken.serializer_class(data=request.data, context={'request':request})
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        token  = Token.objects.get_or_create(user=user)
-        return Response({
-            'token': token.key,
-            'username': user.username
-        })
+# class LoginViewSet(viewsets.ViewSet):
+#     def create(self,request):
+#         serializer = ObtainAuthToken.serializer_class(data=request.data, context={'request':request})
+#         serializer.is_valid(raise_exception=True)
+#         user = serializer.validated_data['user']
+#         token  = Token.objects.get_or_create(user=user)
+#         return Response({
+#             'token': token.key,
+#             'username': user.username
+#         })
 
 #added this block for template login    
 @csrf_exempt  
