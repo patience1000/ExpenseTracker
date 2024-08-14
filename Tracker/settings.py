@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'Trackerapp',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders'
+    'corsheaders',
+    'djoser',
+    # 'djoser.authtoken',
 ]
 
 MIDDLEWARE = [
