@@ -42,11 +42,7 @@
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
         let usernameValue;
         let passwordValue;
-<<<<<<< HEAD
-        // const token =
-=======
         
->>>>>>> 065350fae0d1fdc76d9629b613a70d7140f1537f
 
         loginBtn.addEventListener('click', (e) => { 
             e.preventDefault();
@@ -66,13 +62,7 @@
                 return response.text().then(text => {
                     throw new Error(text);
                 });
-<<<<<<< HEAD
-            }else{
-                
-            }
-=======
             } 
->>>>>>> 065350fae0d1fdc76d9629b613a70d7140f1537f
             return response.json();
             
         })
