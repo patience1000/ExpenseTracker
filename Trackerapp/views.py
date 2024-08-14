@@ -8,7 +8,8 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
-from .serializers import CategorySerializer, IncomeSerializer,ExpenseSerializer,UserSerializers
+from .serializers import CategorySerializer, IncomeSerializer,ExpenseSerializer
+from rest_framework.decorators import api_view, permission_classes
 # Create your views here.
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -32,35 +33,25 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return  self.queryset.filter(user=self.request.user)
     
-    # added this function so I can get each user and their expenses so that I can use it in the chart 
-    def get_user_expense(request):
-        user_id = User
-        expenses = Expense.objects.filter(user_id=user_id)
-        data = []
-        for expense in expenses:
-            data.append({
-                'category': expense.category,
-                'price': expense.price
-            })
-        return JsonResponse(data, safe=False)
-# class UserViewSet(viewsets.ModelViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializers        
-
-# class LoginViewSet(viewsets.ViewSet):
-#     def create(self,request):
-#         serializer = ObtainAuthToken.serializer_class(data=request.data, context={'request':request})
-#         serializer.is_valid(raise_exception=True)
-#         user = serializer.validated_data['user']
-#         token  = Token.objects.get_or_create(user=user)
-#         return Response({
-#             'token': token.key,
-#             'username': user.username
-#         })
-
-#added this block for template login    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user_expense(request):
+    user = request.user  # Get the authenticated user
+    expenses = Expense.objects.filter(user=user)
+    
+    data = []
+    for expense in expenses:
+        data.append({
+            'category': expense.category.name,  # Assuming the Category model has a 'name' field
+            'price': expense.price
+        })
+    
+    return JsonResponse(data, safe=False)
+  
 @csrf_exempt  
 def Login1(request):
     return render(request, 'Trackerapp/login.html')
 def Dashboard(request):
     return render(request, 'Trackerapp/index.html')
+def Success(request):
+    return render(request, 'Trackerapp/success.html')

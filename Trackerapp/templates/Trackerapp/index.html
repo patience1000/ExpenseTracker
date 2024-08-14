@@ -40,53 +40,70 @@
         </div> 
     </div>
      <canvas id="myChart"></canvas>
-    <script>
+     <script>
         const authtoken = localStorage.getItem('authToken');
-        const user_id = localStorage.getItem('userId'); // Assuming you store user ID in localStorage
-        
-        const headers = {
-        'Authorization': `Bearer ${authtoken}`,
-        'Content-Type': 'application/json'
-        };
-
-        fetch('http://localhost:8000/api/expenses?user_id=${user_id}', {headers: headers})
-        .then(response => response.json())
-        .then(data => {
-            const  sumData = {}
-            data.array.forEach(expense =>{
-                if(!sumData[expense.category]){
-                    sumData[expense.category]= 0; 
-                }
-                sumData[expense.category] += expense.price
-            });   
-             chartData= {
-                labels: Object.keys(sumData),
-                datasets: [{
-                    label: 'Expenses',
-                    data: Object.values(sumData),
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            }
-            var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: chartData,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+        console.log('Auth Token:', localStorage.getItem('authToken'));
+        // Check if the token is present
+        if (!authtoken) {
+            console.error('No authentication token found.');
+        } else {
+            // Setup the headers for the request
+            const headers = {
+                'Authorization': `Bearer ${authtoken}`,
+                'Content-Type': 'application/json'
+            };
+    
+            // Fetch user expenses from the API
+            fetch('http://localhost:8000/user-expenses/', { headers: headers })
+                .then(response => {
+                    if (response.status === 401) {
+                        throw new Error('Unauthorized');
                     }
-                }
-            }
-        });
-        })
-       
+                    return response.json();
+                })
+                .then(data => {
+                    // Process and aggregate the expenses
+                    const sumData = {};
+                    data.forEach(expense => {
+                        if (!sumData[expense.category]) {
+                            sumData[expense.category] = 0;
+                        }
+                        sumData[expense.category] += expense.price;
+                    });
+    
+                    // Prepare data for the chart
+                    const chartData = {
+                        labels: Object.keys(sumData),
+                        datasets: [{
+                            label: 'Expenses',
+                            data: Object.values(sumData),
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    };
+    
+                    // Create and render the chart
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: chartData,
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
     </script>
+    
 </body>
 </html> 
