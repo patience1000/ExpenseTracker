@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'djoser',
+    'rest_framework_simplejwt',
     # 'djoser.authtoken',
 ]
 
@@ -130,12 +131,14 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',                                   #added this
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'             #removed this
     ],
     'DEFAULT_AUTHENTICATION_CLASSES':[
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',                        #removed this for debug purpose
     ]
 
 }
@@ -143,3 +146,9 @@ REST_FRAMEWORK = {
 #     'http://127.0.0.1:8000',  # Add your frontend's URL here
 # ]
 CORS_ALLOW_ALL_ORIGINS = True
+
+#added this
+DJOSER = {
+    'TOKEN_MODEL': 'rest_framework.authtoken.models.Token',
+    # Other settings...
+}

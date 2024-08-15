@@ -43,13 +43,17 @@
             usernameValue = usernameInput.value;
             passwordValue = passwordInput.value;
 
-        fetch('http://localhost:8000/auth/token/login/', {  
+        fetch('http://127.0.0.1:8000/jwt/token/', {  //switched to jwt (JSON Web Token)... some changes in settng.py, project/urls.py 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrfToken, 
             },
-            body: JSON.stringify({ username: usernameValue, password: passwordValue}),
+            // some aesthetic optimizations
+            body: JSON.stringify({
+                username: usernameValue,
+                password: passwordValue
+            }),
         })
         .then(response => { 
             if (!response.ok) {
@@ -60,9 +64,12 @@
             return response.json();
             
         })
-        .then(data => { 
-            const token = data.auth_token;
-            localStorage.setItem('authToken', token);
+        .then(data => {
+            // some aesthetic optimizations
+            console.log(data);                              // check received data 
+            localStorage.setItem('access', data.access);
+            localStorage.setItem('refresh', data.refresh);
+            console.log(localStorage);                      // check local storage
             window.location.href = '/';
         })
         .catch((error) => { 

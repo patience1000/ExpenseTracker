@@ -41,7 +41,7 @@
     </div>
      <canvas id="myChart"></canvas>
      <script>
-        const authtoken = localStorage.getItem('authToken');
+        const authtoken = localStorage.getItem('access');                   // access instead of token
         console.log('Auth Token:', localStorage.getItem('authToken'));
         // Check if the token is present
         if (!authtoken) {
@@ -49,13 +49,17 @@
         } else {
             // Setup the headers for the request
             const headers = {
-                'Authorization': `Bearer ${authtoken}`,
+                Authorization: 'Bearer ' + authtoken,                       // concatenate variable
                 'Content-Type': 'application/json'
             };
     
             // Fetch user expenses from the API
-            fetch('http://localhost:8000/user-expenses/', { headers: headers })
+            fetch('http://127.0.0.1:8000/user-expenses/', { headers: headers })
                 .then(response => {
+                    console.log('Authorization Header:', headers.Authorization);    // check headers
+                    console.log();                                                  // space
+                    console.log('Auth Token:', localStorage.getItem('access'));     // check token
+                    console.log(localStorage);
                     if (response.status === 401) {
                         throw new Error('Unauthorized');
                     }
