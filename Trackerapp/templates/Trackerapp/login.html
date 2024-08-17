@@ -3,30 +3,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="csrf-token" content="{% csrf_token %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/base.css' %}">
+    <meta name="csrf-token" content="{% csrf_token %}">
 
 </head>
 <body>
-        <form id="login-form" method="post">
-            {% csrf_token %}
-            <h1>Welcome Back</h1>
-            <div class="form-group">
-                <i class="fas fa-user"></i>
-                <input id="username" class="form-control" id="Username" type="text" placeholder="Username" required="required" data-validation-required-message="Please enter your name.">      
-            </div>
+    <div class="sidebar">
+        <h2>ExTracker</h2>
+        <a href="/"><i class="fa fa-fw fa-home"></i> Home</a>   
+        <a href="#income"><i class="fa fa-fw fa-hand-holding-usd"></i>Income</a>
+        <a href="#report"><i class="fa fa-fw fa-file-alt"></i>Report</a>
+        <a href="#expenses"><i class="fa fa-fw fa-cash-register"></i>Expense</a>
+        <a href="#categories"><i class="fa fa-fw fa-list-alt"></i>Categories</a>
+        <!-- <a href="/login"><i class="fa fa-fw fa-sign-out-alt"></i>Login</a> -->
+        <a href="/login" id="auth-link" ><i class="fa fa-fw fa-sign-out-alt"></i><span id="auth-text">Login</span></a>
+    </div>
 
-            <div class="form-group">
-                <i class="fas fa-ban"></i>
-                <input id="password" class="form-control" type="password" placeholder="Password" required="required"
-                data-validation-required-message="Please enter valid password"> 
-            </div>
-                <button id="login-btn" class="login-btn" type="submit">Log in</button>
-        </form>   
+    <form id="login-form" method="post">
+        {% csrf_token %}
+        <h1>Welcome Back</h1>
+        <div class="form-group">
+            <i class="fas fa-user"></i>
+            <input id="username" class="form-control" id="Username" type="text" placeholder="Username" required="required" data-validation-required-message="Please enter your name.">      
+        </div>
+
+        <div class="form-group">
+            <i class="fas fa-ban"></i>
+            <input id="password" class="form-control" type="password" placeholder="Password" required="required" data-validation-required-message="Please enter valid password"> 
+        </div>
+            <button id="login-btn" class="login-btn" type="submit">Log in</button>
+    </form>
     
     <script>    
         const form = document.getElementById('login-form');
@@ -43,7 +53,7 @@
             usernameValue = usernameInput.value;
             passwordValue = passwordInput.value;
 
-        fetch('http://127.0.0.1:8000/jwt/token/', {  //switched to jwt (JSON Web Token)... some changes in settng.py, project/urls.py 
+        fetch('/jwt/token/', {  //switched to jwt (JSON Web Token)... some changes in settng.py, project/urls.py 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,20 +65,20 @@
                 password: passwordValue
             }),
         })
-        .then(response => { 
+        .then(response => {
             if (!response.ok) {
                 return response.text().then(text => {
                     throw new Error(text);
                 });
-            } 
+            }
             return response.json();
-            
+
         })
         .then(data => {
             // some aesthetic optimizations
             console.log(data);                              // check received data 
-            localStorage.setItem('access', data.access);
-            localStorage.setItem('refresh', data.refresh);
+            localStorage.setItem('accessToken', data.access);
+            localStorage.setItem('refreshToken', data.refresh);
             console.log(localStorage);                      // check local storage
             window.location.href = '/';
         })
@@ -76,6 +86,6 @@
             console.log('An error occurred: ' + error.message);
         });
     });
-</script>
+    </script>
 </body>
 </html>

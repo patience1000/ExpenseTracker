@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9%yp5$=)qw$e4bl)kr4$7(jwp4_7zqf_u*w#f&q=gcz+g+)+jy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -138,7 +138,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES':[
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',                        #removed this for debug purpose
+        'rest_framework.authentication.SessionAuthentication',                        #removed this for debug purpose
     ]
 
 }
@@ -152,3 +152,11 @@ DJOSER = {
     'TOKEN_MODEL': 'rest_framework.authtoken.models.Token',
     # Other settings...
 }
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # 30 minutes
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # 1 day
+}
+

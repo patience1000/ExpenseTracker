@@ -13,13 +13,15 @@
 <body>
     <div class="sidebar">
         <h2>ExTracker</h2>
-        <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>   
+        <a href="/"><i class="fa fa-fw fa-home"></i> Home</a>   
         <a href="#income"><i class="fa fa-fw fa-hand-holding-usd"></i>Income</a>
         <a href="#report"><i class="fa fa-fw fa-file-alt"></i>Report</a>
         <a href="#expenses"><i class="fa fa-fw fa-cash-register"></i>Expense</a>
         <a href="#categories"><i class="fa fa-fw fa-list-alt"></i>Categories</a>
-        <a href="/login1"><i class="fa fa-fw fa-sign-out-alt"></i>Logout</a>
+        <!-- <a href="/login"><i class="fa fa-fw fa-sign-out-alt"></i>Login</a> -->
+        <a href="/login" id="auth-link" ><i class="fa fa-fw fa-sign-out-alt"></i><span id="auth-text">Login</span></a>
     </div>
+    
     <div class="container">
         <div class="box1">
             <h3>$95,000</h3>
@@ -37,29 +39,53 @@
         <div class="box4">
             <h3>122</h3>
             <p>Transactions</p>
-        </div> 
+        </div>
     </div>
-     <canvas id="myChart"></canvas>
-     <script>
-        const authtoken = localStorage.getItem('access');                   // access instead of token
-        console.log('Auth Token:', localStorage.getItem('authToken'));
-        // Check if the token is present
-        if (!authtoken) {
-            console.error('No authentication token found.');
-        } else {
-            // Setup the headers for the request
+
+    <canvas id="myChart"></canvas>
+
+    <!-- Placeholder for Not Logged In message -->
+    <div id="not-logged-in-message" style="display:none; color: red; text-align: center; font-size: 1.5em;">
+        Not logged in. Please log in to view your data.
+    </div>
+
+    
+    <script>
+        const getAccessToken = () => {
+            const token = localStorage.getItem('accessToken');
+            console.log('Token obtained from localStorage:', token);
+            return token;
+        };
+    
+        const refreshAccessToken = () => {
+            const refreshToken = localStorage.getItem('refreshToken');
+            return fetch('/jwt/token/refresh/', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify({ refresh: refreshToken }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to refresh token');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const newAccessToken = data.access;
+                localStorage.setItem('accessToken', newAccessToken);
+                console.log('Token refreshed');
+                return newAccessToken;
+            });
+        };
+        let retry = 0;
+        const fetchUserExpenses = (accessToken) => {
             const headers = {
-                Authorization: 'Bearer ' + authtoken,                       // concatenate variable
+                Authorization: 'Bearer ' + accessToken,
                 'Content-Type': 'application/json'
             };
     
-            // Fetch user expenses from the API
-            fetch('http://127.0.0.1:8000/user-expenses/', { headers: headers })
+            return fetch('/user-expenses/', { headers })
                 .then(response => {
-                    console.log('Authorization Header:', headers.Authorization);    // check headers
-                    console.log();                                                  // space
-                    console.log('Auth Token:', localStorage.getItem('access'));     // check token
-                    console.log(localStorage);
                     if (response.status === 401) {
                         throw new Error('Unauthorized');
                     }
@@ -81,12 +107,8 @@
                         datasets: [{
                             label: 'Expenses',
                             data: Object.values(sumData),
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)'
-                            ],
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
                             borderWidth: 1
                         }]
                     };
@@ -104,10 +126,44 @@
                             }
                         }
                     });
+                    console.log('Chart drawn using access token');
                 })
-                .catch(error => console.error('Error fetching data:', error));
-        }
+                .catch(error => {
+                    if (error.message === 'Unauthorized' && retry < 3) {
+                        return refreshAccessToken().then(newAccessToken => {
+                            return fetchUserExpenses(newAccessToken);
+                        });
+                        retry++;
+                    } else {
+                        console.error('Error fetching data:', error);
+                    }
+                });
+        };
+        
+        const setupAuthLink = () => {
+            const accessToken = getAccessToken();
+            const authLink = document.getElementById('auth-link');
+            const authText = document.getElementById('auth-text');
+            const notLoggedInMessage = document.getElementById('not-logged-in-message');
+
+
+            if (accessToken) {
+                authLink.href = "#";
+                authText.textContent = "Logout";
+                authLink.addEventListener('click', () => {
+                    localStorage.removeItem('accessToken');
+                    localStorage.removeItem('refreshToken');
+                    window.location.reload(); // Refresh the page after logout
+                });
+                fetchUserExpenses(accessToken); // Fetch expenses only if the user is logged in
+            } else {
+                notLoggedInMessage.style.display = 'block'; // Show "Not logged in" message
+                console.error('No authentication token found.');
+            }
+        };
+
+        setupAuthLink();
+
     </script>
-    
 </body>
 </html> 

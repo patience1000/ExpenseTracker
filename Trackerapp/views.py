@@ -49,7 +49,7 @@ def get_user_expense(request):
     return JsonResponse(data, safe=False)
   
 @csrf_exempt  
-def Login1(request):
+def Login(request):
     return render(request, 'Trackerapp/login.html')
 def Dashboard(request):
     return render(request, 'Trackerapp/index.html')
