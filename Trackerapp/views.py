@@ -42,7 +42,7 @@ def get_user_expense(request):
     data = []
     for expense in expenses:
         data.append({
-            'category': expense.category.name,  # Assuming the Category model has a 'name' field
+            'category': expense.category.name,  
             'price': expense.price
         })
     
