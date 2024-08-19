@@ -42,20 +42,17 @@ const fetchUserExpenses = (accessToken) => {
         .then((data) => {
             // Process and aggregate the expenses
             const sumData = {};
+            let totalExpenses = 0;
             data.forEach((expense) => {
+                const expenseAmount = parseFloat(expense.price) || 0;
                 if (!sumData[expense.category]) {
                     sumData[expense.category] = 0;
                 }
-                sumData[expense.category] += expense.price;
+                sumData[expense.category] += expenseAmount;
+                totalExpenses += expenseAmount;
             })
-            // .then((data) => {
-            //     console.log(data.expense.price); // The total expenses
-            //     document.getElementById("totalExpenses").innerText = `Total Expenses: $${data.expense.price}`;
-            // })
-            // .catch((error) => {
-            //     console.error("Error fetching total expenses:", error);
-            // });
-
+     
+            document.getElementById("total-expenses").textContent = totalExpenses.toFixed(2)
             // Prepare data for the chart
             const chartData = {
                 labels: Object.keys(sumData),
