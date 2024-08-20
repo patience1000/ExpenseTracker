@@ -25,6 +25,7 @@ const refreshAccessToken = () => {
             return newAccessToken;
         });
 };
+
 let retry = 0;
 const fetchUserExpenses = (accessToken) => {
     const headers = {
@@ -53,6 +54,7 @@ const fetchUserExpenses = (accessToken) => {
             })
      
             document.getElementById("total-expenses").textContent = totalExpenses.toFixed(2)
+           
             // Prepare data for the chart
             const chartData = {
                 labels: Object.keys(sumData),
@@ -85,11 +87,51 @@ const fetchUserExpenses = (accessToken) => {
         .catch((error) => {
             if (error.message === "Unauthorized" && retry < 3) {
                 return refreshAccessToken().then((newAccessToken) => {
+                    retry++;
                     return fetchUserExpenses(newAccessToken);
                 });
-                retry++;
+               
             } else {
                 console.error("Error fetching data:", error);
+            }
+        });
+};
+const fetchUserIncome = (accessToken) => {
+    const headers = {
+        Authorization: "Bearer " + accessToken,
+        "Content-Type": "application/json",
+    };
+
+    return fetch("/user-income/", { headers })
+        .then((response) => {
+            if (response.status === 401) {
+                throw new Error("Unauthorized");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data)
+            sumTotal = {};
+            let totalIncome = 0;
+            data.forEach((i) => {
+                const incomeAmount = parseFloat(i.amount) || 0;
+                if(!sumTotal[i.source]){
+                    sumTotal[i.source] = 0;
+                }
+                sumtotal[i.source] += incomeAmount;
+                totalIncome += incomeAmount;
+                
+            });
+            document.getElementById("total-income").textContent = totalIncome.toFixed(2);
+        })
+        .catch((error) => {
+            if (error.message === "Unauthorized" && retry < 3) {
+                return refreshAccessToken().then((newAccessToken) => {
+                    retry++;
+                    return fetchUserIncome(newAccessToken);
+                });
+            } else {
+                console.error("Error fetching income data:", error);
             }
         });
 };
@@ -111,11 +153,11 @@ const setupAuthLink = () => {
             window.location.reload(); // Refresh the page after logout
         });
         fetchUserExpenses(accessToken); // Fetch expenses only if the user is logged in
+        fetchUserIncome(accessToken);
     } else {
         notLoggedInMessage.style.display = "block"; // Show "Not logged in" message
         console.error("No authentication token found.");
     }
 };
-
 setupAuthLink();
 

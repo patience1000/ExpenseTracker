@@ -1,0 +1,70 @@
+body{
+    background-image:linear-gradient(rgb(236, 243, 239),rgb(213, 252, 236));  
+    height: 100vh;
+}
+.sidebar {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color:#4c755c;
+    overflow-x: hidden;
+    padding-top: 16px;
+}
+.sidebar a, h2 {
+    padding: 6px 8px 50px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #fff;
+    display: block;
+}
+.sidebar a:hover {
+    opacity: 0.8 ;
+} 
+#expense{
+    margin-left: 160px;
+}
+h1 {
+    color: #4c755c;
+}
+#expense-form label{
+    display: block;
+    margin-bottom: 10px;
+    color: #4c755c;
+    font-size: 1em;
+    font-weight: 600;
+}
+#expense-form input{
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+#expense-item input{
+    padding: 30px 20px;
+}
+#category{
+    color: #4c755c;
+    font-size: .8em;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+#submit{
+    background-color: #4c755c;
+    outline: none;
+    border-radius: 5px;
+    padding: 8px 20px;
+    border: 0;
+    color: #ffffff;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+    display: block;
+}
+#submit :hover{
+    opacity: 0.8;
+}

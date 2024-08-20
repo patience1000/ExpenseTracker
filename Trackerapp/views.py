@@ -4,9 +4,6 @@ from django.http import JsonResponse
 from Trackerapp.permissions import IsOwnerOrReadOnly
 from rest_framework.permissions import IsAuthenticated
 from .models import Category,Income,Expense,User
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from .serializers import CategorySerializer, IncomeSerializer,ExpenseSerializer
 from rest_framework.decorators import api_view, permission_classes
@@ -37,8 +34,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
 @permission_classes([IsAuthenticated])
 def get_user_expense(request):
     user = request.user  # Get the authenticated user
-    expenses = Expense.objects.filter(user=user)
-    
+    expenses = Expense.objects.filter(user=user) 
     data = []
     for expense in expenses:
         data.append({
@@ -46,12 +42,24 @@ def get_user_expense(request):
             'price': expense.price
         })
     
-    return JsonResponse(data, safe=False)
-  
+    return JsonResponse(data,safe=False)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user_income(request):
+    user = request.user
+    income = Income.objects.filter(user=user)
+    data = []
+    for i in income:
+        data.append({
+            'source': i.source,
+            'amount': i.amount
+        })
+    return JsonResponse(data,safe=False)      
 @csrf_exempt  
 def Login(request):
     return render(request, 'Trackerapp/login.html')
 def Dashboard(request):
     return render(request, 'Trackerapp/index.html')
-def Success(request):
-    return render(request, 'Trackerapp/success.html')
+def AddExpense(request):
+    return render(request, 'Trackerapp/expense.html')
