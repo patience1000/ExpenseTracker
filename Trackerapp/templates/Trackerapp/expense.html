@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Expenses</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}" /> -->
     <link rel="stylesheet" href="{% static 'CSS/expense.css' %}" />
     <meta name="csrf-token" content="{% csrf_token %}" />
 </head>
@@ -30,7 +29,7 @@
             {% csrf_token %}
             
             <label for="date">Date</label>
-            <input type="date">
+            <input id="date" type="date">
             
             <label for="category">Category</label>
             <select id="category" required>
@@ -43,19 +42,24 @@
             </select>
 
             <label for="price">Price</label>
-            <input type="number" required placeholder="0.00">
+            <input id="price" type="number" required placeholder="0.00">
             
             <label for="income">Income-Source</label>
-            <input required type="text" placeholder="Salary">
-            
+            <select id="income" required>
+                <option value="">Select Income source</option>
+                <option value="salary">Salary</option>
+                <option value="gift">Gift</option>
+                <option value="business">Business</option>
+                <option value="investment">Investment</option>
+                <option value="others">others</option>
+            </select>
             <label for="description">Description</label>
-            <textarea required type="text" rows="5" cols="30"></textarea>
+            <textarea id="description" type="text" rows="5" cols="30"></textarea>
             
             <button id="submit">Add Expense</button>
         </form>
     </div>
-    
-    <!-- <script src="{% static 'js/login.js' %}"></script> -->
+    <script src="{% static 'js/expense.js' %}"></script>
 </body>
 
 </html>
