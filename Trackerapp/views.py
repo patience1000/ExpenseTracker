@@ -30,7 +30,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return  self.queryset.filter(user=self.request.user)
     
-@api_view(['GET','POST'])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_user_expense(request):
     user = request.user  # Get the authenticated user
