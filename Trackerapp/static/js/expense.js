@@ -55,7 +55,7 @@ form.addEventListener('submit', async (e) => {
     }
 
     // Make the POST request with the (possibly refreshed) token
-    fetch("/user-expenses/", {
+    fetch("/apiexpenses/", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ form.addEventListener('submit', async (e) => {
             date: document.getElementById('date').value,
             category: document.getElementById('category').value,
             price: document.getElementById('price').value,
-            income: document.getElementById('income').value,
+            income_source: document.getElementById('income').value,
             description: document.getElementById('description').value
         })
     })
