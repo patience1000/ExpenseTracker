@@ -8,7 +8,7 @@ router.register(r'income',IncomeViewSet, basename='income')
 router.register(r'expenses',ExpenseViewSet, basename='expenses')
 
 urlpatterns = [
-    path('api', include(router.urls)),
+    path('api/', include(router.urls)),
     path('login/', Login),
     path('', Dashboard),
     path('expense/', AddExpense),

@@ -25,6 +25,6 @@ class Expense(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField(max_length=200)
     income_source = models.ForeignKey(Income, on_delete=models.CASCADE)
-     
+
     def __str__(self):
         return f'{self.category.name} - {self.description}'
