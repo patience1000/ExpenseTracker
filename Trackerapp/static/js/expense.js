@@ -55,18 +55,40 @@ form.addEventListener('submit', async (e) => {
     }
 
     // Make the POST request with the (possibly refreshed) token
-    fetch("/api/expenses/", {
-        method: 'POST',
+    fetch("/api/categories/", {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`, 
         },
-        body: JSON.stringify({
-            date: document.getElementById('date').value,
-            category: document.getElementById('category').value,
-            price: document.getElementById('price').value,
-            income_source: document.getElementById('income').value,
-            description: document.getElementById('description').value
+    })
+    .then(response => response.json())
+    .then(data => {
+        const categoryOption = document.getElementById('category');
+        data.forEach(Category => {
+            const option = document.createElement('option');
+            option.value = Category.id;
+            option.text = Category.name;
+            categoryOption.appendChild(option)
+        })
+    })
+
+    fetch("/api/income/", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, 
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        const incomeOption = document.getElementById('income');
+        data.forEach(Income => {
+            const option = document.createElement('option')
+            option.value = Income.id 
+            option.text = Income.source;
+            incomeOption.appendChild(option)
         })
     })
     .then((response) => {

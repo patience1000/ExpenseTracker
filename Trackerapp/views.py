@@ -55,7 +55,8 @@ def get_user_income(request):
             'source': i.source,
             'amount': i.amount
         })
-    return JsonResponse(data,safe=False)      
+    return JsonResponse(data,safe=False)  
+    
 @csrf_exempt  
 def Login(request):
     return render(request, 'Trackerapp/login.html')
