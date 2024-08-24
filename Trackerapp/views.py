@@ -7,6 +7,8 @@ from .models import Category,Income,Expense,User
 from django.views.decorators.csrf import csrf_exempt
 from .serializers import CategorySerializer, IncomeSerializer,ExpenseSerializer
 from rest_framework.decorators import api_view, permission_classes
+from django.contrib.auth.models import User
+
 # Create your views here.
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -64,3 +66,18 @@ def Dashboard(request):
     return render(request, 'Trackerapp/index.html')
 def AddExpense(request):
     return render(request, 'Trackerapp/expense.html')
+
+
+
+
+
+
+
+
+
+@permission_classes([IsAuthenticated])
+def CategoryView(request):
+    pat = User.objects.get(pk=1)
+    if pat.groups.filter(name='editor').exists():
+        def get_queryset(self):
+          return  self.queryset.filter(user=self.request.user)

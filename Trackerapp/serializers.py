@@ -26,7 +26,7 @@ class ExpenseSerializer(serializers.ModelSerializer):
 class UserSerializers(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url','username', 'email','password']
+        fields = ['pk', 'url','username', 'email','password']
         extra_kwargs = {'password':{'write_only':True}}
 
     def create(self, validated_data):
