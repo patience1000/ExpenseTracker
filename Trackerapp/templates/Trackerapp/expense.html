@@ -27,7 +27,8 @@
         <hr>
         <form id="expense-form">
             {% csrf_token %}
-            
+            <label for="user">Current-User</label>
+            <input id="user" readonly>
             <label for="date">Date</label>
             <input id="date" type="date">
             

@@ -82,7 +82,7 @@ form.addEventListener('submit', async (e) => {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data)
+        console.log(data  )
         const incomeOption = document.getElementById('income');
         data.forEach(Income => {
             const option = document.createElement('option')
