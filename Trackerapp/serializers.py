@@ -1,17 +1,12 @@
-from .models import Category, Income, Expense, User
+from .models import ExpenseCategory, Income, Expense, User
 from rest_framework import serializers
 
-class CategorySerializer(serializers.ModelSerializer):
+class ExpenseSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = Expense
         fields = ['id','name']
 
-class IncomeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Income
-        fields = ['id','date','amount','source']       
-
-class ExpenseSerializer(serializers.ModelSerializer):
+class ExpenseCategorySerializer(serializers.ModelSerializer):
     category_name = serializers.SerializerMethodField()
     def get_category_name(self,obj):
         return obj.category.name
@@ -20,13 +15,24 @@ class ExpenseSerializer(serializers.ModelSerializer):
     def get_source_income(self, obj):
         return obj.income_source.source
     class Meta:
-        model = Expense
-        fields = ['id','date','price','category','category_name','description','income_source','source_income']
+        model = ExpenseCategory
+        fields = ['id','date','amount','expense','description']
+
+class IncomeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Income
+        fields = ['id','source'] 
+
+class IncomeCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Income
+        fields = ['id','date','amount','source']              
+
 
 class UserSerializers(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url','username', 'email','password']
+        fields = ['pk', 'url','username', 'email','password']
         extra_kwargs = {'password':{'write_only':True}}
 
     def create(self, validated_data):
