@@ -39,10 +39,45 @@ loginBtn.addEventListener("click", (e) => {
             console.log(data); // check received data
             localStorage.setItem("accessToken", data.access);
             localStorage.setItem("refreshToken", data.refresh);
-            console.log(localStorage); // check local storage
+            console.log(localStorage);
+
+            return fetch("me/",{
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            });
+        })
+        // code to get current user
+        .then((response) => {
+            if (!response.ok){
+                throw new error ("Failed to fetch user data");
+            }
+            return response.json();
+        })
+        .then((userData) => {
+            localStorage.setItem("userId", userData.pk);
+            localStorage.setItem("username", userData.username);
+            console.log(localStorage);
             window.location.href = "/";
         })
         .catch((error) => {
             console.log("An error occurred: " + error.message);
         });
+});
+function displayUser(username) {
+    const usernameDisplay = document.getElementById("username-display");
+
+    if (username) {
+        usernameDisplay.textContent = username;
+    } else {
+        document.getElementById("user-info").style.display = "none";
+    }
+}
+
+// Ensure user data is displayed when the page loads
+document.addEventListener("DOMContentLoaded", function() {
+    const username = localStorage.getItem("username");
+    displayUser(username);
 });

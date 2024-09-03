@@ -32,7 +32,7 @@ class IncomeCategorySerializer(serializers.ModelSerializer):
 class UserSerializers(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['pk', 'url','username', 'email','password']
+        fields = ['pk', 'url','username', 'email']
         extra_kwargs = {'password':{'write_only':True}}
 
     def create(self, validated_data):

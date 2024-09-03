@@ -13,7 +13,7 @@ body{
     overflow-x: hidden;
     padding-top: 16px;
 }
-.sidebar a, h2 {
+.sidebar a, h2{
     padding: 6px 8px 50px 16px;
     text-decoration: none;
     font-size: 20px;
