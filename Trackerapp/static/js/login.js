@@ -2,9 +2,7 @@ const form = document.getElementById("login-form");
 const loginBtn = document.getElementById("login-btn");
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
-const csrfToken = document
-    .querySelector('meta[name="csrf-token"]')
-    .getAttribute("content");
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 let usernameValue;
 let passwordValue;
 
@@ -46,7 +44,6 @@ loginBtn.addEventListener("click", (e) => {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
             },
-            
             });
         })
         // code to get current user
@@ -66,11 +63,12 @@ loginBtn.addEventListener("click", (e) => {
             console.log("An error occurred: " + error.message);
         });
 });
+
 function displayUser(username) {
     const usernameDisplay = document.getElementById("username-display");
 
     if (username) {
-        usernameDisplay.textContent = username;
+        usernameDisplay.textContent = `Welcome, ${username}`;
     } else {
         document.getElementById("user-info").style.display = "none";
     }

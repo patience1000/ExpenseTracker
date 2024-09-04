@@ -1,10 +1,14 @@
-const form = document.getElementById('expense-form');
+const form = document.getElementById('expense-form')
 const submitBtn = document.getElementById('submit');
+
+// Added this to show current date
+const dateInput = document.getElementById('dateInput');
+const currentDate = new Date().toISOString().split('T')[0];
+dateInput.value = currentDate
 
 // Function to check if the token is expired
 function isTokenExpired(token) {
     if (!token) return true;
-
     const payload = JSON.parse(atob(token.split('.')[1])); // Decode the JWT payload
     const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
 
@@ -14,7 +18,6 @@ function isTokenExpired(token) {
 // Function to refresh the access token using the refresh token
 async function refreshAccessToken() {
     const refreshToken = localStorage.getItem('refreshToken');
-    
     if (!refreshToken) {
         console.error('No refresh token found. Please log in again.');
         return null;

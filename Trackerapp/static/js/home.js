@@ -1,4 +1,16 @@
-// Scripts for dashboard
+function displayUser() {
+    const username = localStorage.getItem('username');
+    const usernameDisplay = document.getElementById("username-display");
+
+    if (username) {
+        usernameDisplay.textContent = `Welcome, ${username}`;
+    } else {
+        document.getElementById("user-info").style.display = "none";
+    }
+}
+
+document.addEventListener('DOMContentLoaded', displayUser);
+
 const getAccessToken = () => {
     const token = localStorage.getItem("accessToken");
     console.log("Token obtained from localStorage:", token);
