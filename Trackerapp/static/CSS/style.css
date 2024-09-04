@@ -1,42 +1,90 @@
 body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-image:linear-gradient(rgb(236, 243, 239),rgb(213, 252, 236));  
+   margin: 0;
+   padding: 0;
+}
+.sidenav{
     height: 100vh;
+    width: 100%;
+    position: fixed;
+    background-color: #4c755c;
+    color: white;
+    width: 160px;
+    padding: 20px;
 }
 
+.sidenav .app-name {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.sidenav .welcome-message{
+    font-size: 1.125em;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #e0f2e9; 
+    background-color: #3a5a45;
+    padding: 10px;
+    border-radius: 5px;       
+}
+
+.sidenav nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidenav nav ul li {
+    margin: 20px 0;
+}
+
+.sidenav nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.125em;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidenav nav ul li a:hover {
+    background-color: #3a5a45;
+}
 form{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #ffffff;
-    height: auto;
-    width: 40%;
-    padding-bottom: 30px;
+    padding: 40px 100px;
     box-shadow: 2px 2px 4px 3px rgb(0,0,0,0.1);
     border-radius: 5px;
 }
 h1 {
-    margin: 46px 0;
     color: #4c755c;
     text-align: center;
+    padding: 0 20px;
 }
 .form-group{
     margin: 30px auto;
-    width: 70%;
-    padding: 10px 10px 10px 5px;
+    width: 100%;
+    padding: 10px 10px 10px 20px;
     outline: none;
     border-radius: 1px;
     color: #000;
-    background-color: whitesmoke;
+    background-color: #e8f0fe;
+    
 }
+
 .form-control{
     width: 90%;
-    margin-left: 1px;
     height: inherit;
     outline: none;
     border: 0;
-    background-color: whitesmoke;
 }
-
+input{
+    background: none;
+}
 .login-btn{
     background-color: #4c755c;
     outline: none;
@@ -52,4 +100,9 @@ h1 {
 
 .login-btn:hover {
     opacity: 0.8;
+}
+@media (max-width: 768px) {
+   .sidenav{
+    display: none;
+   }
 }

@@ -35,18 +35,18 @@ loginBtn.addEventListener("click", (e) => {
             return response.json();
         })
         .then((data) => {
-            // some aesthetic optimizations
             console.log(data); // check received data
             localStorage.setItem("accessToken", data.access);
             localStorage.setItem("refreshToken", data.refresh);
             console.log(localStorage);
 
-            return fetch("me/",{
+            return fetch("http://localhost:8000/me/",{
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
             },
+            
             });
         })
         // code to get current user

@@ -62,18 +62,6 @@ def get_user_expense(request):
             'amount': expense.amount
         })
     
-    return JsonResponse(data,safe=False)
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_user_income(request):
-    user = request.user
-    income = IncomeCategory.objects.filter(user=user)
-    data = []
-    for i in income:
-        data.append({
-            'amount': i.amount
-        })
     return JsonResponse(data,safe=False)  
     
 @csrf_exempt  
