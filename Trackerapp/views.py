@@ -13,14 +13,14 @@ from rest_framework.views import APIView
 
 # Create your views here.
 class ExpenseViewSet(viewsets.ModelViewSet):
-    queryset = ExpenseCategory.objects.all()
+    queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     def get_queryset(self):
         return  self.queryset.filter(user=self.request.user)
     
 class ExpenseCategoryViewSet(viewsets.ModelViewSet):
-    queryset = Expense.objects.all()
+    queryset = ExpenseCategory.objects.all()
     serializer_class = ExpenseSerializer 
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]  
     def get_queryset(self):

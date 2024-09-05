@@ -7,13 +7,6 @@ class ExpenseSerializer(serializers.ModelSerializer):
         fields = ['id','name']
 
 class ExpenseCategorySerializer(serializers.ModelSerializer):
-    category_name = serializers.SerializerMethodField()
-    def get_category_name(self,obj):
-        return obj.category.name
-    
-    source_income = serializers.SerializerMethodField()
-    def get_source_income(self, obj):
-        return obj.income_source.source
     class Meta:
         model = ExpenseCategory
         fields = ['id','date','amount','expense','description']

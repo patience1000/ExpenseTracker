@@ -1,9 +1,9 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import IncomeCategoryViewSet, ExpenseCategoryViewSet, UserViewSet, Login, Dashboard,AddExpense,get_user_expense, CurrentUserView
+from .views import IncomeCategoryViewSet, ExpenseCategoryViewSet,ExpenseViewSet, UserViewSet, Login, Dashboard,AddExpense,get_user_expense, CurrentUserView
 
 router = DefaultRouter()
-router.register(r'categories', ExpenseCategoryViewSet, basename='category')
+router.register(r'categories', ExpenseViewSet, basename='category')
 router.register(r'income',IncomeCategoryViewSet, basename='income')
 router.register(r'users',UserViewSet, basename='user')
 # router.register(r'expenses',ExpenseViewSet, basename='expenses')
