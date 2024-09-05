@@ -8,21 +8,21 @@
     <title>Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <link rel="stylesheet" href="{% static 'CSS/base.css' %}" />
     <meta name="csrf-token" content="{% csrf_token %}" />
 </head>
 
 <body>
-    <div class="sidebar">
-        <h2>ExTracker</h2>
-        <a href="/"><i class="fa fa-fw fa-home"></i> Home</a>
-        <a href="#income"><i class="fa fa-fw fa-hand-holding-usd"></i>Income</a>
-        <a href="#report"><i class="fa fa-fw fa-file-alt"></i>Report</a>
-        <a href="/expense"><i class="fa fa-fw fa-cash-register"></i>Expense</a>
-        <a href="#categories"><i class="fa fa-fw fa-list-alt"></i>Categories</a>
-        <!-- <a href="/login"><i class="fa fa-fw fa-sign-out-alt"></i>Login</a> -->
-        <a href="/login" id="auth-link"><i class="fa fa-fw fa-sign-out-alt"></i><span id="auth-text">Login</span></a>
-    </div>
+    <aside class="sidenav">
+        <div class="app-name">ExTracker</div>
+        <nav>
+            <ul>
+                <li><a href="/"><i class="fa fa-fw fa-home"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-cog"></i>Settings</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-file-alt"></i>Report</a></li>
+                <li><a href="/login" id="auth-link"><i class="fa fa-fw fa-sign-out-alt"></i><span id="auth-text"></span>Login</span></a></li>
+            </ul>
+        </nav>
+    </aside>        
 
     <form id="login-form" method="post">
         {% csrf_token %}

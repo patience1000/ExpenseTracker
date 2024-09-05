@@ -12,27 +12,29 @@
 </head>
 
 <body>
-    <div class="sidebar">
-        <h2>ExTracker</h2>
-        <a href="/"><i class="fa fa-fw fa-home"></i> Home</a>
-        <a href="#income"><i class="fa fa-fw fa-hand-holding-usd"></i>Income</a>
-        <a href="#report"><i class="fa fa-fw fa-file-alt"></i>Report</a>
-        <a href="/expense"><i class="fa fa-fw fa-cash-register"></i>Expense</a>
-        <a href="#categories"><i class="fa fa-fw fa-list-alt"></i>Categories</a>
-        <!-- <a href="/login"><i class="fa fa-fw fa-sign-out-alt"></i>Login</a> -->
-        <a href="/login" id="auth-link"><i class="fa fa-fw fa-sign-out-alt"></i><span id="auth-text">Login</span></a>
-    </div>
+    <aside class="sidenav">
+        <div class="app-name">ExTracker</div>
+        <nav>
+            <ul>
+                <li><a href="/"><i class="fa fa-fw fa-home"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-cog"></i>Settings</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-file-alt"></i>Report</a></li>
+                <li><a href="/login" id="auth-link"><i class="fa fa-fw fa-sign-out-alt"></i><span id="auth-text"></span>Logout</span></a></li>
+            </ul>
+        </nav>
+    </aside>
     <div id="expense">
         <h1>New expense</h1>
         <hr>
         <form id="expense-form">
             {% csrf_token %}
-            
             <label for="date">Date</label>
-            <input id="date" type="date">
+            <input id="dateInput" type="date" name="date">
             
             <label for="category">Category</label>
-            <select id="category" ></select>
+            <select id="categoryDropdown" name="category" >
+                <option value="">Select Category</option>
+            </select>
 
             <label for="price">Price</label>
             <input id="price" type="number" required placeholder="0.00" step="0.01">

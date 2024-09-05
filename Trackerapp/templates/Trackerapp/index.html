@@ -5,52 +5,76 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trackerapp</title>
+    <title>ExTrackerapp</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="{% static 'CSS/base.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 
 <body>
-    <div class="sidebar">
-        <h2>ExTracker</h2>
-        <a href="/"><i class="fa fa-fw fa-home"></i> Home</a>
-        <a href="#income"><i class="fa fa-fw fa-hand-holding-usd"></i>Income</a>
-        <a href="#report"><i class="fa fa-fw fa-file-alt"></i>Report</a>
-        <a href="/expense"><i class="fa fa-fw fa-cash-register"></i>Expense</a>
-        <a href="#categories"><i class="fa fa-fw fa-list-alt"></i>Categories</a>
-        <!-- <a href="/login"><i class="fa fa-fw fa-sign-out-alt"></i>Login</a> -->
-        <a href="/login" id="auth-link"><i class="fa fa-fw fa-sign-out-alt"></i><span id="auth-text">Login</span></a>
-    </div>
-
-    <div class="container">
-        <div class="box1">
-            <h3 id="total-income">$0</h3>
-            <p>Income</p>
-        </div>
-
-        <div class="box2">
-            <h3 id="total-expenses">$0</h3>
-            <p>Expenses</p>
-        </div>
-        <div class="box3">
-            <h3>$40,000</h3>
-            <p>Balance</p>
-        </div>
-        <div class="box4">
-            <h3>122</h3>
-            <p>Transactions</p>
-        </div>
-    </div>
-
-    <canvas id="myChart"></canvas>
-
-    <!-- Placeholder for Not Logged In message -->
-    <div id="not-logged-in-message" style="display: none; color: red; text-align: center; font-size: 1.5em">
-        Not logged in. Please log in to view your data.
-    </div>
-
+    <div class="dashboard">
+        <aside class="sidenav">
+            <div class="app-name">ExTracker</div>
+            <div class="welcome-message" id="username-display">Welcome</div>
+            <nav>
+                <ul>
+                    <li><a href="/"><i class="fa fa-fw fa-home"></i>Home</a></li>
+                    <li><a href="#"><i class="fa fa-fw fa-cog"></i>Settings</a></li>
+                    <li><a href="#"><i class="fa fa-fw fa-file-alt"></i>Report</a></li>
+                    <li><a href="/login" id="auth-link"><i class="fa fa-fw fa-sign-out-alt"></i><span id="auth-text"></span>Login</span></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="header">
+                <h3>Dashboard</h3>
+            </div>
+            <section class="summary-section">
+                <div class="summary-box">
+                    <h3 style="color: green;">Total Income</h3>
+                    <p id="total-income">$0</p>
+                </div>
+                <div class="summary-box">
+                    <h3 style="color: red;">Total Expenses</h3>
+                    <p id="total-expenses">$0</p>
+                </div>
+                <div class="summary-box">
+                    <h3 style="color: purple;">Balance</h3>
+                    <p>$450</p>
+                </div>
+                <div class="summary-box">
+                    <h3 style="color: blue;">Total Transactions</h3>
+                    <p>50</p>
+                </div>
+            </section>
+            <section class="actions-section">
+                <div class="top">
+                    <h3>Easy Access</h3>
+                    <hr>
+                </div>
+                <div class="bottom">
+                    <div class="action-box">
+                        <a href="/expense"><i class="fa fa-fw fa-plus"></i>Add New Expense</a>
+                    </div>
+                    <div class="action-box">
+                        <a href="/income"><i class="fa fa-fw fa-plus"></i>Add New income</a>
+                    </div>
+                    <div class="action-box">
+                        <a href="/report"><i class="fa fa-fw fa-plus"></i>Add Report</a>
+                    </div>
+                </div>
+            </section>
+            <section class="chart-section">
+                <canvas id="myChart"></canvas>
+                 <!-- Placeholder for Not Logged In message -->
+                <div id="not-logged-in-message" style="display: none; color: red; text-align: center; font-size: 1.5em">
+                    Not logged in. Please log in to view your data.
+                </div>
+            </section>
+        </main>
+    </div>    
     <script src="{% static 'js/home.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
 </body>
 
 </html>

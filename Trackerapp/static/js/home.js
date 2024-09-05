@@ -1,4 +1,16 @@
-// Scripts for dashboard
+function displayUser() {
+    const username = localStorage.getItem('username');
+    const usernameDisplay = document.getElementById("username-display");
+
+    if (username) {
+        usernameDisplay.textContent = `Welcome, ${username}`;
+    } else {
+        document.getElementById("user-info").style.display = "none";
+    }
+}
+
+document.addEventListener('DOMContentLoaded', displayUser);
+
 const getAccessToken = () => {
     const token = localStorage.getItem("accessToken");
     console.log("Token obtained from localStorage:", token);
@@ -45,11 +57,11 @@ const fetchUserExpenses = (accessToken) => {
             const sumData = {};
             let totalExpenses = 0;
             data.forEach((expense) => {
-                const expenseAmount = parseFloat(expense.price) || 0;
-                if (!sumData[expense.category]) {
-                    sumData[expense.category] = 0;
+                const expenseAmount = parseFloat(expense.amount) || 0;
+                if (!sumData[expense.expense_type]) {
+                    sumData[expense.expense_type] = 0;
                 }
-                sumData[expense.category] += expenseAmount;
+                sumData[expense.expense_type] += expenseAmount;
                 totalExpenses += expenseAmount;
             })
      
@@ -96,45 +108,6 @@ const fetchUserExpenses = (accessToken) => {
             }
         });
 };
-const fetchUserIncome = (accessToken) => {
-    const headers = {
-        Authorization: "Bearer " + accessToken,
-        "Content-Type": "application/json",
-    };
-
-    return fetch("/user-income/", { headers })
-        .then((response) => {
-            if (response.status === 401) {
-                throw new Error("Unauthorized");
-            }
-            return response.json();
-        })
-        .then((data) => {
-            console.log(data)
-            sumTotal = {};
-            let totalIncome = 0;
-            data.forEach((i) => {
-                const incomeAmount = parseFloat(i.amount) || 0;
-                if(!sumTotal[i.source]){
-                    sumTotal[i.source] = 0;
-                }
-                sumtotal[i.source] += incomeAmount;
-                totalIncome += incomeAmount;
-                
-            });
-            document.getElementById("total-income").textContent = totalIncome.toFixed(2);
-        })
-        .catch((error) => {
-            if (error.message === "Unauthorized" && retry < 3) {
-                return refreshAccessToken().then((newAccessToken) => {
-                    retry++;
-                    return fetchUserIncome(newAccessToken);
-                });
-            } else {
-                console.error("Error fetching income data:", error);
-            }
-        });
-};
 
 const setupAuthLink = () => {
     const accessToken = getAccessToken();
@@ -153,7 +126,6 @@ const setupAuthLink = () => {
             window.location.reload(); // Refresh the page after logout
         });
         fetchUserExpenses(accessToken); // Fetch expenses only if the user is logged in
-        fetchUserIncome(accessToken);
     } else {
         notLoggedInMessage.style.display = "block"; // Show "Not logged in" message
         console.error("No authentication token found.");

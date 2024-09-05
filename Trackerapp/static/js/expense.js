@@ -1,10 +1,14 @@
-const form = document.getElementById('expense-form');
+const form = document.getElementById('expense-form')
 const submitBtn = document.getElementById('submit');
+
+// Added this to show current date
+const dateInput = document.getElementById('dateInput');
+const currentDate = new Date().toISOString().split('T')[0];
+dateInput.value = currentDate
 
 // Function to check if the token is expired
 function isTokenExpired(token) {
     if (!token) return true;
-
     const payload = JSON.parse(atob(token.split('.')[1])); // Decode the JWT payload
     const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
 
@@ -14,7 +18,6 @@ function isTokenExpired(token) {
 // Function to refresh the access token using the refresh token
 async function refreshAccessToken() {
     const refreshToken = localStorage.getItem('refreshToken');
-    
     if (!refreshToken) {
         console.error('No refresh token found. Please log in again.');
         return null;
@@ -55,50 +58,40 @@ form.addEventListener('submit', async (e) => {
     }
 
     // Make the POST request with the (possibly refreshed) token
-    fetch("/api/categories/", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, 
-        },
-    })
-    .then(response => response.json())
-    .then(data => {
-        const categoryOption = document.getElementById('category');
-        data.forEach(Category => {
+    function fetchCategories() { 
+        fetch('/api/categories/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(categories => {
+            populateDropdown(categories);
+        })
+        .catch(error => {
+            console.error('Error fetching categories:', error);
+        });
+    }
+    
+    function populateDropdown(categories) {
+        const dropdown = document.getElementById('categoryDropdown');
+        dropdown.innerHTML = '<option value="">Select Category</option>';  // Clear existing options
+    
+        categories.forEach(category => {
             const option = document.createElement('option');
-            option.value = Category.id;
-            option.text = Category.name;
-            categoryOption.appendChild(option)
-        })
-    })
+            option.value = category.id;
+            option.text = category.name;
+            dropdown.add(option);
+        });
+    }
+    // Call fetchCategories when the page loads
+    window.onload = fetchCategories;
 
-    fetch("/api/income/", {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, 
-        },
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-        const incomeOption = document.getElementById('income');
-        data.forEach(Income => {
-            const option = document.createElement('option')
-            option.value = Income.id 
-            option.text = Income.source;
-            incomeOption.appendChild(option)
-        })
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error('Failed to save expense');
-        }
-        return response.json();
-    })
-    .then((data) => {
-        console.log('Expense saved successfully!', data);
-    })
-    .catch((error) => console.error(error));
 });
