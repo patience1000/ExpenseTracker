@@ -57,41 +57,4 @@ form.addEventListener('submit', async (e) => {
         }
     }
 
-    // Make the POST request with the (possibly refreshed) token
-    function fetchCategories() { 
-        fetch('/api/categories/', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .then(categories => {
-            populateDropdown(categories);
-        })
-        .catch(error => {
-            console.error('Error fetching categories:', error);
-        });
-    }
-    
-    function populateDropdown(categories) {
-        const dropdown = document.getElementById('categoryDropdown');
-        dropdown.innerHTML = '<option value="">Select Category</option>';  // Clear existing options
-    
-        categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category.id;
-            option.text = category.name;
-            dropdown.add(option);
-        });
-    }
-    // Call fetchCategories when the page loads
-    window.onload = fetchCategories;
-
 });

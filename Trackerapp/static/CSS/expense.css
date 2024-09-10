@@ -74,6 +74,13 @@ h1 {
     padding: 30px 20px;
     color: #4c755c;
 }
+#categoryDropdown{
+    padding: 12px 30px;
+    margin-bottom: 20px;
+    border: 1px solid #4c755c;
+    border-radius: 10px;
+    color: #4c755c;
+}
 #category{
     color: #4c755c;
     font-size: .8em;

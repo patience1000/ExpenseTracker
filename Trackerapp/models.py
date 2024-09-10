@@ -16,6 +16,8 @@ class ExpenseCategory(models.Model):
     expense_type = models.ForeignKey(Expense, on_delete=models.CASCADE)
     description = models.TextField(max_length=200)
     # income = models.ForeignKey(Income, on_delete=models.CASCADE)
+    class Meta:
+        verbose_name_plural = 'ExpenseCategories'
     
 class Income(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True) 
@@ -31,6 +33,8 @@ class IncomeCategory(models.Model):
     source = models.ForeignKey(Income, on_delete=models.CASCADE, null=True)
     description = models.TextField(max_length=200)
     
+    class Meta:
+        verbose_name_plural = 'IncomeCategories'
     def __str__(self):  
         return f'{self.description}'    
 

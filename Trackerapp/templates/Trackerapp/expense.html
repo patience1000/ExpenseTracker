@@ -30,17 +30,23 @@
             {% csrf_token %}
             <label for="date">Date</label>
             <input id="dateInput" type="date" name="date">
-            
+
             <label for="category">Category</label>
             <select id="categoryDropdown" name="category" >
-                <option value="">Select Category</option>
+                {% for category in categories%}
+                <option name="category" value="{{category.name}}">{{category.name}}</option>
+                {% endfor%}
             </select>
 
             <label for="price">Price</label>
             <input id="price" type="number" required placeholder="0.00" step="0.01">
             
             <label for="income">Income-Source</label>
-            <select id="income" ></select>
+            <select id="income" name="income">
+                {% for sources in income%}
+                <option name="income" value="{{income.source}}">{{income.source}}</option>
+                {% endfor%}
+            </select>
 
             <label for="description">Description</label>
             <textarea id="description" type="text" rows="5" cols="30"></textarea>

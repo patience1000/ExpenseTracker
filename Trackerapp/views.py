@@ -63,14 +63,20 @@ def get_user_expense(request):
         })
     
     return JsonResponse(data,safe=False)  
-    
+
 @csrf_exempt  
 def Login(request):
     return render(request, 'Trackerapp/login.html')
 def Dashboard(request):
     return render(request, 'Trackerapp/index.html')
 def AddExpense(request):
-    return render(request, 'Trackerapp/expense.html')
+    categories = Expense.objects.all()
+    income = Income.objects.all()
+    context = {
+        'categories': categories,
+        'income': income  
+    }
+    return render(request, 'Trackerapp/expense.html', context)
 
 # @permission_classes([IsAuthenticated])
 # def CategoryView(request):

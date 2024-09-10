@@ -28,7 +28,7 @@ loginBtn.addEventListener("click", (e) => {
             if (!response.ok) {
                 return response.text().then((text) => {
                     throw new Error(text);
-                });
+                });  
             }
             return response.json();
         })
