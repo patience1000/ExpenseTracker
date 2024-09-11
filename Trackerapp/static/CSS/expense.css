@@ -50,31 +50,76 @@ body{
 .sidenav nav ul li a:hover {
     background-color: #3a5a45;
 }
-#expense{
+#expense, #income{
     margin-left: 210px;
 }
 h1 {
     color: #4c755c;
 }
+
 #expense-form label{
     display: block;
+    margin-right: 10px;
     margin-bottom: 10px;
     color: #4c755c;
-    font-size: 1.235em;
+    font-size: 1.125em;
     font-weight: 600;
 }
 #expense-form input{
     padding: 12px 30px;
     margin-bottom: 20px;
     border: 1px solid #4c755c;
-    border-radius: 10px;
+    border-radius: 5px;
     color: #4c755c;
 }
-#expense-item input{
+#expense-form textarea{
+    margin-bottom: 10px;
+    border: 1px solid #4c755c;
+    color: #4c755c;
+    outline: none;
+}
+#expense-item{
     padding: 30px 20px;
     color: #4c755c;
 }
+#category{
+    color: #4c755c;
+    font-size: .8em;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 #categoryDropdown{
+    padding: 12px 30px;
+    margin-bottom: 20px;
+    border: 1px solid #4c755c;
+    border-radius: 5px;
+    color: #4c755c;
+}
+#income-form label{
+    display: block;
+    margin-bottom: 10px;
+    color: #4c755c;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+#income-form input{
+    padding: 12px 30px;
+    margin-bottom: 20px;
+    border: 1px solid #4c755c;
+    border-radius: 10px;
+    color: #4c755c;
+}
+#income-source{
+    padding: 12px 30px;
+    margin-bottom: 20px;
+    border: 1px solid #4c755c;
+    border-radius: 10px;
+    color: #4c755c;
+}
+#incomedropdown{
     padding: 12px 30px;
     margin-bottom: 20px;
     border: 1px solid #4c755c;

@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expenses</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'CSS/expense.css' %}" />
+    <meta name="csrf-token" content="{% csrf_token %}" />
+</head>
+
+<body>
+    <aside class="sidenav">
+        <div class="app-name">ExTracker</div>
+        <nav>
+            <ul>
+                <li><a href="/"><i class="fa fa-fw fa-home"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-cog"></i>Settings</a></li>
+                <li><a href="#"><i class="fa fa-fw fa-file-alt"></i>Report</a></li>
+                <li><a href="/login" id="auth-link"><i class="fa fa-fw fa-sign-out-alt"></i><span id="auth-text"></span>Logout</span></a></li>
+            </ul>
+        </nav>
+    </aside>
+    <div id="income">
+        <h1>Income</h1>
+        <hr>
+        <form id="income-form">
+            {% csrf_token %}
+            <label for="date">Date</label>
+            <input id="dateInput" type="date" name="date">
+
+            <label for="amount">Amount</label>
+            <input id="amount" type="number" required placeholder="0.00" step="0.01">
+            
+            <label for="income">Income-Source</label>
+            <select id="incomedropdown" name="income">
+                {% for sources in income%}
+                <option name="income" value="{{sources.source}}">{{sources.source}}</option>
+                {% endfor%}
+            </select> 
+            <label for="description">Income-Description</label>
+            <textarea id="description" type="text" rows="4" cols="25"></textarea>
+            <button id="submit">Add income</button>
+        </form>
+    </div>
+    <script src="{% static 'js/expense.js' %}"></script>
+</body>
+
+</html>
