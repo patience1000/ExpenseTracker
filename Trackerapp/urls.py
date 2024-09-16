@@ -6,7 +6,7 @@ router = DefaultRouter()
 router.register(r'categories', ExpenseViewSet, basename='category')
 router.register(r'income',IncomeCategoryViewSet, basename='income')
 router.register(r'users',UserViewSet, basename='user')
-# router.register(r'expenses',ExpenseViewSet, basename='expenses')
+router.register(r'expenses',ExpenseCategoryViewSet, basename='expenses')
 
 urlpatterns = [
     path('api/', include(router.urls)),

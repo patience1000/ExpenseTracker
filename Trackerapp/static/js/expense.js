@@ -40,21 +40,45 @@ async function refreshAccessToken() {
     localStorage.setItem('accessToken', data.access); // Store the new access token
     return data.access;
 }
+// Code to submit (add) expense
+submitBtn.addEventListener('click', async function(event){
+    event.preventDefault();
 
-// Function to handle form submission
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // Retrieve the access token from localStorage
-    let token = localStorage.getItem('accessToken');
-
-    // Check if the token is expired and refresh it if necessary
-    if (isTokenExpired(token)) {
-        token = await refreshAccessToken();
-        if (!token) {
-            console.error('Unable to refresh token. Please log in again.');
-            return; // Stop if we cannot get a valid token
-        }
+    let accessToken = localStorage.getItem('accessToken');
+    if (isTokenExpired(accessToken)) {
+        accessToken = await refreshAccessToken();
     }
 
+    if (!accessToken) {
+        alert("You need to log in again!"); 
+        return;
+    }
+    const expenseData = {
+        date: document.getElementById('dateInput').value,
+        amount: parseFloat(document.getElementById('price').value),
+        income: document.getElementById('income-source').value,
+        category: document.getElementById('categoryDropdown').value,
+        category_description: document.getElementById('description').value,
+    };
+
+    const response = await fetch("/api/expenses/", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+    
+        },
+        body: JSON.stringify(expenseData),
+    });
+
+    if (response.ok) {
+        alert("Expense added successfully!");
+        form.reset();  
+        dateInput.value = currentDate;  
+    } else {
+        const errorData = await response.json();
+        console.error("Error adding expense:", errorData);
+        alert("Failed to add expense.");
+    }
 });
