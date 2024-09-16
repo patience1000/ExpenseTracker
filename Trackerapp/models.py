@@ -7,6 +7,9 @@ class Income(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True) 
     name = models.TextField(max_length=100)   
 
+    def __str__(self):
+        return self.name
+    
 class IncomeCategory(models.Model):
     date = models.DateTimeField(default=datetime.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True) 

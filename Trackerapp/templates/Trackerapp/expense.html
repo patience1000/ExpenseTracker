@@ -41,9 +41,9 @@
 
             <label for="income">Income-Source</label>
             <select id="income-source" name="income">
-                {% for sources in income%}
-                <option name="income" value="{{income.source}}">{{income.source}}</option>
-                {% endfor %}
+                {% for description in descriptions %}
+                <option name="income" value="{{description.income_description}}">{{description.income_description}}</option>
+                {% endfor%}
             </select>
 
             <label for="price">Price</label>

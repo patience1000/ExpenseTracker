@@ -58,7 +58,7 @@ def get_user_expense(request):
     data = []
     for expense in expenses:
         data.append({
-            'expense_type': expense.expense_type.name,  
+            'expense_type': expense.category.name,  
             'amount': expense.amount
         })
     
@@ -71,14 +71,18 @@ def Dashboard(request):
     return render(request, 'Trackerapp/index.html')
 def AddExpense(request):
     categories = Expense.objects.all()
+    descriptions = IncomeCategory.objects.all()
     context = {
         'categories': categories,
+        'descriptions': descriptions
     }
     return render(request, 'Trackerapp/expense.html', context)
+  
 def AddIncome(request):
-    income = Income.objects.all()
+    sources = Income.objects.all()
+    
     context = {
-        'income': income  
+        'sources': sources
     }
     return render(request, 'Trackerapp/income.html', context)
 

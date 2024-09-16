@@ -58,10 +58,10 @@ const fetchUserExpenses = (accessToken) => {
             let totalExpenses = 0;
             data.forEach((expense) => {
                 const expenseAmount = parseFloat(expense.amount) || 0;
-                if (!sumData[expense.expense_type]) {
-                    sumData[expense.expense_type] = 0;
+                if (!sumData[expense.category]) {
+                    sumData[expense.category] = 0;
                 }
-                sumData[expense.expense_type] += expenseAmount;
+                sumData[expense.category] += expenseAmount;
                 totalExpenses += expenseAmount;
             })
      

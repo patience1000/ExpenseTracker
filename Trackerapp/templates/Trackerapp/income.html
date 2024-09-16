@@ -36,9 +36,9 @@
             
             <label for="income">Income-Source</label>
             <select id="incomedropdown" name="income">
-                {% for sources in income%}
-                <option name="income" value="{{sources.source}}">{{sources.source}}</option>
-                {% endfor%}
+                {% for source in sources %}
+                <option name="income" value="{{source.name}}">{{source.name}}</option>
+                {% endfor %}
             </select> 
             <label for="description">Income-Description</label>
             <textarea id="description" type="text" rows="4" cols="25"></textarea>
