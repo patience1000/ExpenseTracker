@@ -35,7 +35,7 @@
             <label for="category">Category</label>
             <select id="categoryDropdown" name="category" >
                 {% for category in categories%}
-                <option name="category" value="{{category.name}}">{{category.name}}</option>
+                <option name="category" value="{{category.id}}">{{category.name}}</option>
                 {% endfor %}
             </select>
 
@@ -53,8 +53,9 @@
             <textarea id="description" type="text" rows="5" cols="25"></textarea>
             <button id="submit">Add Expense</button>
         </form>
+                 
     </div>
     <script src="{% static 'js/expense.js' %}"></script>
-</body>
+    </body>
 
 </html>
