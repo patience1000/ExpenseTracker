@@ -64,7 +64,8 @@
                     </div>
                 </div>
             </section>
-            <section class="expense-section"></section>
+            <section class="expense-section">
+                <h3>Expenses</h3>
                 <table>
                     <tr>
                       <th>Category</th>
@@ -73,25 +74,17 @@
                       <th>Date</th>
                     </tr>
                     <tr>
-                      <td>Alfreds Futterkiste</td>
-                      
+                    {% for category in categories %}
+                      <td>{{category.name}}</td>
+                    {% endfor %}  
+                      <td>Lunch</td>
+                      <td>$15</td>
+                      <td>12/12/2024</td>
                     </tr>
-                    <tr>
-                      <td>Centro comercial Moctezuma</td>
+                 
                     </tr>
-                    <tr>
-                      <td>Ernst Handel</td>
-                    </tr>
-                    <tr>
-                      <td>Island Trading</td>
-                    </tr>
-                    <tr>
-                      <td>Laughing Bacchus Winecellars</td>
-                    </tr>
-                    <tr>
-                      <td>Magazzini Alimentari Riuniti</td>
-                    </tr>
-                  </table>
+                </table>
+            </section>
             <section class="chart-section">
                 <canvas id="myChart"></canvas>
                  <!-- Placeholder for Not Logged In message -->
