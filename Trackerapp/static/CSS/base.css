@@ -137,7 +137,20 @@ hr{
 .action-box button:hover {
     background-color: #3a5a45;
 }
-
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
 .chart-section {
     background-color: white;
     border-radius: 5px;
