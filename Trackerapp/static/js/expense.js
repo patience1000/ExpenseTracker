@@ -67,7 +67,6 @@ submitBtn.addEventListener('click', async function(event){
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`,
             'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-    
         },
         body: JSON.stringify(expenseData),
     });
@@ -82,3 +81,22 @@ submitBtn.addEventListener('click', async function(event){
         alert("Failed to add expense.");
     }
 });
+fetch('/api/expenses/')
+    .then(response => response.json())
+    .then(expenses =>{
+        const expensesTbody = document.getElementById('expenes-tbody');
+        expenses.forEach(expense => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${expense.date}</td>
+                <td>${expense.amount}</td>
+                <td>${expense.category}</td>
+                <td>${expense.description}</td>
+            ;
+            `
+                expensesTbody.appendChild(row);
+            });
+        })
+        .catch(error =>
+            console.error(error));        
+   

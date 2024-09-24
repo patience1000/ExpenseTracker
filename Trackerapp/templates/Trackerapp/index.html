@@ -67,22 +67,17 @@
             <section class="expense-section">
                 <h3>Expenses</h3>
                 <table>
-                    <tr>
-                      <th>Category</th>
-                      <th>Description</th>
-                      <th>Amount</th>
-                      <th>Date</th>
-                    </tr>
-                    <tr>
-                    {% for category in categories %}
-                      <td>{{category.name}}</td>
-                    {% endfor %}  
-                      <td>Lunch</td>
-                      <td>$15</td>
-                      <td>12/12/2024</td>
-                    </tr>
-                 
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenses-tbody">
+                        
+                    </tbody>
                 </table>
             </section>
             <section class="chart-section">
