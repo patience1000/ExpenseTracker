@@ -69,6 +69,8 @@ def Login(request):
     return render(request, 'Trackerapp/login.html')
 def Dashboard(request):
     return render(request, 'Trackerapp/index.html')
+def Settings(request):
+    return render(request, 'Trackerapp/settings.html')
 def AddExpense(request):
     categories = Expense.objects.all()
     descriptions = IncomeCategory.objects.all()

@@ -1,8 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>Setings</title>
 </head>
 <body>
@@ -11,16 +14,22 @@
         <hr>
     </div>  
     <div id="gen-settings">
-        <h1> General </h1>
+        <h1>General</h1>
+        <p>Currency</p>
+        <p>Date Format</p> 
+        <p>Language</p>
     </div>   
-    <div id="sec-settings">
-        <h1> Security </h1>
-    </div>  
+    
     <div id="app-settings">
-        <h1> Appearance</h1>
+        <h1>Appearance</h1>
+        <p>Theme</p>
+        <p>Font Size</p> 
     </div>   
     <div id="help-settings">
         <h1> Help and Support </h1>
+        <p><i class="fa fa-fw fa-question"></i>Help Center</p> 
+        <p><i class="fa fa-fw fa-contact"></i>Support Contact</p>
+        <p><i class="fa fa-fw fa-report"></i>Report a Problem</p>
     </div>    
 </body>
 </html>

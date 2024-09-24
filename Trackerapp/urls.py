@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import IncomeCategoryViewSet, ExpenseCategoryViewSet,ExpenseViewSet, UserViewSet, Login, Dashboard,AddExpense,get_user_expense,AddIncome, CurrentUserView
+from .views import IncomeCategoryViewSet, ExpenseCategoryViewSet,ExpenseViewSet, UserViewSet, Login, Dashboard,AddExpense,get_user_expense,AddIncome,Settings, CurrentUserView
 
 router = DefaultRouter()
 router.register(r'categories', ExpenseViewSet, basename='category')
@@ -14,6 +14,7 @@ urlpatterns = [
     path('', Dashboard),
     path('expense/', AddExpense),
     path('income/', AddIncome),
+    path('settings/',Settings),
     path('user-expenses/', get_user_expense),
     path('me/', CurrentUserView.as_view(), name='current-user')
 ]
