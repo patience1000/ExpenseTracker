@@ -3,6 +3,7 @@ body, html {
     padding: 0;
     font-family: Arial, sans-serif;
     box-sizing: border-box;
+    background-color: #e7eeedaf;
 }
 
 .dashboard {
@@ -60,7 +61,6 @@ body, html {
 .main-content {
     flex-grow: 1;
     padding: 20px;
-    background-color: #d4e7e3af;
     overflow-y: auto;
 }
 .header h3{
@@ -170,6 +170,23 @@ canvas {
     height: 400px !important;
 }
 /* Settings */
+#settings{
+    margin: 10px;
+    overflow: hidden;
+}
+#settings h1{
+    color: #3a5a45;
+}
+#settings h3{
+    font-size: 1.1em;
+    color: #3a5a45;
+}
+.gen-settings{
+    background-color: #c5e4ddaf;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 3px 2px 5px rgba(0,0,0,0.1);
+}
 
 /* Responsive styles */
 @media (max-width: 768px) {

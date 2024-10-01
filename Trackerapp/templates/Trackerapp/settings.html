@@ -4,32 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/base.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>Setings</title>
 </head>
-<body>
-    <div id="settings-title">
-        <h1>Settings</h1>
-        <hr>
-    </div>  
-    <div id="gen-settings">
-        <h1>General</h1>
-        <p>Currency</p>
-        <p>Date Format</p> 
-        <p>Language</p>
+<body >
+    <div id="settings">
+        <div id="settings-title">
+            <h1>Settings</h1>
+            <hr>
+        </div>  
+        <h3>General</h3>
+        <div class="gen-settings">
+            <p><i class="fa fa-fw fa-currency"></i>Currency</p>
+            <p><i class="fa fa-fw fa-date"></i>Date Format</p> 
+            <p><i class="fa fa-fw fa-language"></i>Language</p>
+        </div>   
+        <h3>Appearance</h3>
+        <div class="gen-settings">
+            <p><i class="fa fa-fw fa-theme"></i>Theme</p>
+            <p><i class="fa fa-fw fa-font"></i>Font-Size</p> 
+        </div> 
+        <h3> Help and Support </h3>  
+        <div class="gen-settings">
+            <p><i class="fa fa-fw fa-question"></i>Help Center</p> 
+            <p><i class="fa fa-fw fa-contact"></i>Support Contact</p>
+            <p><i class="fa fa-fw fa-report"></i>Report a Problem</p>
+        </div> 
     </div>   
-    
-    <div id="app-settings">
-        <h1>Appearance</h1>
-        <p>Theme</p>
-        <p>Font Size</p> 
-    </div>   
-    <div id="help-settings">
-        <h1> Help and Support </h1>
-        <p><i class="fa fa-fw fa-question"></i>Help Center</p> 
-        <p><i class="fa fa-fw fa-contact"></i>Support Contact</p>
-        <p><i class="fa fa-fw fa-report"></i>Report a Problem</p>
-    </div>    
 </body>
 </html>
